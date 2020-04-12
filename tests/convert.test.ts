@@ -21,4 +21,5 @@ test('Should be not convert if arabic invalid', () => {
   expect(new mapperNumeral("-4.3").convert().success).toBe(false);
   expect(new mapperNumeral("200.36").convert().success).toBe(false);
   expect(new mapperNumeral("1X8").convert().success).toBe(false);
+  expect(new mapperNumeral("9C").convert().success).toBe(false);
 });

@@ -1,17 +1,18 @@
-import { ENumerals } from '../Enums/numerals'
+import { ENumerals } from '../Enums/ENumerals'
+import { EArabicNumber } from '../Enums/EArabicNumber'
 import { Mappings } from './mappings'
-import { isInt, regexRomanNumeral } from '../Utils/utils'
+import * as Utils from '../Utils/utils'
 
 export class mapperNumeral {
-    private type: ENumerals
-    private numeral: string
-    private chooseConverse = {
+    private readonly type: ENumerals
+    private readonly numeral: string
+    private readonly chooseConverse = {
         [ENumerals.Arabic]: this.toRoman,
         [ENumerals.Roman]: this.toArabic
     }
 
     constructor(numeral: string) {
-        this.type = isInt(numeral) ? ENumerals.Arabic : ENumerals.Roman
+        this.type = Utils.isInt(numeral) ? ENumerals.Arabic : ENumerals.Roman
         this.numeral = numeral
     }
 
@@ -22,12 +23,8 @@ export class mapperNumeral {
     }
 
     private IsValid(numeral: any) {
-        switch (this.type) {
-            case ENumerals.Arabic:
-                return numeral < 4000 && numeral > 0
-            case ENumerals.Roman:
-                return regexRomanNumeral(numeral)
-        }
+        return this.type == ENumerals.Arabic ?
+            numeral < EArabicNumber.MAX && numeral > EArabicNumber.MIN : Utils.regexRomanNumeral(numeral)
     }
 
     private toRoman(arabicNumeral: string) {

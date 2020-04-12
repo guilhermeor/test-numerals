@@ -6,11 +6,11 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-var recursiveAsyncReadLine = () => {
+const recursiveAsyncReadLine = () => {
   rl.question('What do you want? ', (answer: string) => {
     if (answer == 'exit')
       return rl.close();
-    let mapper = new mapperNumeral(answer);
+    const mapper = new mapperNumeral(answer);
     console.log(`${mapper.convert().message}\n`)
     recursiveAsyncReadLine()
   })
